@@ -1,5 +1,6 @@
 from kafka import KafkaProducer
 import json
+import time 
 
 # Define the Kafka broker and topic
 broker = 'my-kafka.elyaago18u-dev.svc.cluster.local:9092'
@@ -27,6 +28,13 @@ message = {
     'value': 'this-is-a-value'
 }
 
+i=0
+while True : 
+    message = { 
+        'key' : 'id',
+        'value' : i,
+        'timestamp' : time.time()}
+
 # Send the message to the Kafka topic
 producer.send(topic, value=message)
 
@@ -34,3 +42,5 @@ producer.send(topic, value=message)
 producer.flush()
 
 print(f"Message sent to topic {topic}")
+
+time.sleep(5)
